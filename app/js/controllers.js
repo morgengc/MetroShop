@@ -5,7 +5,7 @@
 var shopcatControllers = angular.module('shopcatControllers', []);
 
 /**
- * index.html页面使用的控制器，用于分页控制
+ * shop-list.html页面使用的控制器，用于分页控制
  * 需要使用如下服务：
  * $rootScope   用于所有控制器之间共享数据
  * $scope       HTML与控制器之间绑定数据
@@ -18,7 +18,7 @@ shopcatControllers.controller('shopIndexController', ['$rootScope', '$scope', '$
 		var prefix = "/page/";
 
 		/**
-		 * 构造前面一页的URL
+		 * 定位到前面一个分页
 		 * @param 无
 		 * @returns void
 		 */
@@ -36,7 +36,7 @@ shopcatControllers.controller('shopIndexController', ['$rootScope', '$scope', '$
 		};
 
 		/**
-		 * 构造后面一页的URL
+		 * 定位到后面一个分页
 		 * @param 无
 		 * @returns void
 		 */
@@ -80,12 +80,15 @@ shopcatControllers.controller('shopIndexController', ['$rootScope', '$scope', '$
 shopcatControllers.controller('ShopListCtrl', ['$rootScope', '$scope', '$http', '$routeParams',
 	function($rootScope, $scope, $http, $routeParams) {
 		$http.get('data/MetroShops.json').success(function(data) {
-			// 注意：json数组的id是从1开始，而返回的数据是个数组，下标从0开始
+			// 注意：json数组的索引是从1开始，而返回的数据是个数组，下标从0开始
 			var start = ($routeParams.pid-1)*$rootScope.pageSize;
 			var end = start + $rootScope.pageSize;
 			$scope.shops = data.slice(start, end);
 
-			$rootScope.allPage = parseInt(data.length/$rootScope.pageSize) + 1;
+			/* 总页面数 */
+			$rootScope.allPage = (parseInt(data.length)%$rootScope.pageSize == 0) ?
+				(parseInt(data.length/$rootScope.pageSize)) :
+				(parseInt(data.length/$rootScope.pageSize) + 1);
 		});
 	}
 ]);

@@ -80,6 +80,11 @@ h1 {
   border-bottom: 1px solid gray;
 }
 
+#shopdistrict {
+  background-color:lightgray;
+  border:red dashed thin;
+}
+
 #shopfunction {
   background-color:lightyellow;
   border:red solid thin;
@@ -121,4 +126,10 @@ button {
 
 .totalPages {
   color: #ffffff
+}
+
+.baiduMap {
+  width: 1000px;
+  height: 700px;
+  display: block;
 }

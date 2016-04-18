@@ -1,7 +1,12 @@
 'use strict';
 
-/* App Module */
-
+/**
+ * 路由控制模块
+ *
+ * @module shopcatApp
+ * @submodule shopcatControllers
+ * @main shopcatApp
+ */
 var shopcatApp = angular.module('shopcatApp', [
   'ngRoute',
   'shopcatControllers',
@@ -18,6 +23,14 @@ shopcatApp.config(['$routeProvider',
     $routeProvider.when('/:Longitude,:Latitude', {
       templateUrl: 'partials/shop-detail.html',
       controller: 'ShopDetailCtrl'
+    });
+
+    $routeProvider.when('/about', {
+      templateUrl: 'partials/about.html'
+    });
+
+    $routeProvider.when('/contact', {
+      templateUrl: 'partials/contact.html'
     });
 
     $routeProvider.otherwise({

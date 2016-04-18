@@ -72,8 +72,8 @@ button {
   color: #ffffff
 }
 
-.baiduMap {
-  width: 1000px;
-  height: 700px;
+#baiduMapView {
+  width: 1440px;
+  height: 750px;
   display: block;
 }

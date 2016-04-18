@@ -1,17 +1,21 @@
 'use strict';
 
-/* Controllers */
-
+/**
+ * 控制器模块
+ * @module shopcatControllers
+ */
 var shopcatControllers = angular.module('shopcatControllers', []);
 
 /**
  * shop-list.html页面使用的控制器，用于分页控制
- * 需要使用如下服务：
- * $rootScope   用于所有控制器之间共享数据
- * $scope       HTML与控制器之间绑定数据
- * $location    分析浏览器地址栏中的URL
+ *
+ * @method ShopIndexCtrl
+ * @param {Object} $rootScope 用于所有控制器之间共享数据
+ * @param {Object} $scope     HTML与控制器之间绑定数据
+ * @param {Object} $location  分析浏览器地址栏中的URL
+ * @return undefined
  */
-shopcatControllers.controller('shopIndexController', ['$rootScope', '$scope', '$location',
+shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$location',
 	function($rootScope, $scope, $location) {
 		$rootScope.pageSize = 5;	// 每页显示的纪录数
 
@@ -19,31 +23,32 @@ shopcatControllers.controller('shopIndexController', ['$rootScope', '$scope', '$
 
 		/**
 		 * 定位到前面一个分页
+		 * @method previous
 		 * @param 无
-		 * @returns void
+		 * @return undefined
 		 */
 		$scope.previous = function () {
 			// 从浏览器的地址栏获取路径，即"app/#/page/1"中井号后面的内容："/page/1"
 			// 然后通过JavaScript的slice函数取出斜杠后面的字符，并转换成数字。
-			// 加 1 还是减 1 要看是在定义的是哪个按钮的功能函数了
 			var pageNum = parseInt($location.path().slice(prefix.length)) - 1;
 			if (pageNum < 1) {
-				alert('This is the first page');
+				alert('已经到达第一页');
 			} else {
-				// 如果现在没有处在第一页，则path属性减去1，即向前翻一页。这个翻页的效果就是通过设置url中的path来实现
+				// 如果现在没有处在第一页，则path属性减去1，即向前翻一页。
 				$location.path(prefix+pageNum);
 			}
 		};
 
 		/**
 		 * 定位到后面一个分页
+		 * @method next
 		 * @param 无
-		 * @returns void
+		 * @return undefined
 		 */
 		$scope.next = function () {
 			var pageNum = parseInt($location.path().slice(prefix.length)) + 1;
 			if (pageNum > $rootScope.allPage) {
-				alert('This is the last page');
+				alert('已经到达最后一页');
 			} else {
 				$location.path(prefix+pageNum);
 			}
@@ -51,17 +56,18 @@ shopcatControllers.controller('shopIndexController', ['$rootScope', '$scope', '$
 
 		/**
 		 * 直接跳转到指定页码
+		 * @method goToPage
 		 * @param 无
-		 * @returns void
+		 * @return undefined
 		 */
 		$scope.goToPage = function () {
 			// 从input输入框绑定的currentPage变量中获取用户输入的值
 			var pageNum = $scope.currentPage;
-			// 为了程序的严密和可用性，需要先判断输入是否为空
+
 			if (pageNum == null || pageNum == undefined || pageNum == "") {
-				alert("try to input a page number");
+				alert("请输入想要跳转的页码");
 			} else if (!(pageNum >= 1 && pageNum <= $rootScope.allPage)) {
-				alert("The page number is beyond the scope of the number of the students")
+				alert("输入的页码超过了最大页码数")
 			} else {
 				$location.path(prefix+pageNum);
 			}
@@ -71,11 +77,13 @@ shopcatControllers.controller('shopIndexController', ['$rootScope', '$scope', '$
 
 /**
  * shop-list.html页面使用的控制器，用于显示每个分页
- * 需要使用如下服务：
- * $rootScope   用于所有控制器之间共享数据
- * $scope       HTML与控制器之间绑定数据
- * $http        获取JSON数据
- * $routeParams URL的路由规则获取
+ *
+ * @method ShopListCtrl
+ * @param {Object} $rootScope   用于所有控制器之间共享数据
+ * @param {Object} $scope       HTML与控制器之间绑定数据
+ * @param {Object} $http        获取JSON数据
+ * @param {Object} $routeParams URL的路由规则获取
+ * @return undefined
  */
 shopcatControllers.controller('ShopListCtrl', ['$rootScope', '$scope', '$http', '$routeParams',
 	function($rootScope, $scope, $http, $routeParams) {
@@ -85,7 +93,7 @@ shopcatControllers.controller('ShopListCtrl', ['$rootScope', '$scope', '$http', 
 			var end = start + $rootScope.pageSize;
 			$scope.shops = data.slice(start, end);
 
-			/* 总页面数 */
+			// 总页面数
 			$rootScope.allPage = (parseInt(data.length)%$rootScope.pageSize == 0) ?
 				(parseInt(data.length/$rootScope.pageSize)) :
 				(parseInt(data.length/$rootScope.pageSize) + 1);
@@ -95,9 +103,11 @@ shopcatControllers.controller('ShopListCtrl', ['$rootScope', '$scope', '$http', 
 
 /**
  * shop-detail.html页面使用的控制器，用于显示每个店铺的地图
- * 需要使用如下服务：
- * $scope       HTML与控制器之间绑定数据
- * $routeParams URL的路由规则获取
+ *
+ * @method ShopDetailCtrl
+ * @param {Object} $scope       HTML与控制器之间绑定数据
+ * @param {Object} $routeParams URL的路由规则获取
+ * @return undefined
  */
 shopcatControllers.controller('ShopDetailCtrl', ['$scope', '$routeParams',
 	function($scope, $routeParams) {

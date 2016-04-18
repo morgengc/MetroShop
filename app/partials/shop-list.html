@@ -30,11 +30,11 @@
       </ul>
 
       <!-- 分页控制 -->
-      <div class="turnPageButtonArea" ng-controller="shopIndexController">
-        <button ng-click="previous()">Previous</button>
-        <button ng-click="next()">Next</button>
+      <div class="turnPageButtonArea" ng-controller="ShopIndexCtrl">
+        <button ng-click="previous()">上一页</button>
+        <button ng-click="next()">下一页</button>
         <input type="number" ng-model="currentPage" class="pageNum">
-        <button ng-click="goToPage()">Go</button>
+        <button ng-click="goToPage()">跳转</button>
         <span class="totalPages">共 {{allPage}} 页</span>
       </div>
 

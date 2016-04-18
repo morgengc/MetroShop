@@ -22,6 +22,7 @@ nav {
   height: 110px;
   padding-top: 5px;
   border:lightgray solid thin;
+  background-color: aliceblue;
 }
 
 #shopdistrict {
@@ -44,16 +45,6 @@ nav {
   border:red solid thin;
 }
 
-.turnPageButtonArea {
-  background-color: #f07a13;
-  width: 500px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  margin: 10px auto;
-  /*padding: 20px;*/
-}
-
 button {
   margin-right: 20px;
   width: 100px;
@@ -69,7 +60,7 @@ button {
 }
 
 .totalPages {
-  color: #ffffff
+  color: lightpink;
 }
 
 #baiduMapView {

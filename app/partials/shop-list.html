@@ -1,43 +1,46 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2">
-      <!--Sidebar content-->
+	<div class="row">
+		<div class="col-md-2">
+			<!--Sidebar content-->
 
-      Search: <input ng-model="query">
+			Search: <input ng-model="query">
 
-      <!--Sort by:
-      <select ng-model="orderProp">
-        <option value="">Alphabetical</option>
-        <option value="age">Newest</option>
-      </select>
--->
-    </div>
-    <div class="col-md-10">
-      <!-- 分页显示，每页显示5项 -->
-      <ul class="cards">
-        <li ng-repeat="shop in shops | filter:query" class="thumbnail">
-          <a href="#/{{shop.Longitude}},{{shop.Latitude}}"><p><h4>{{shop.ShopGroup}} - {{shop.ShopName}}</h4></p></a>
-          <p>
-            <span id="shopdistrict">{{shop.District}}</span>
-            <span id="shopaddress">{{shop.Address}}</span>
-          </p>
-          <p>
-            <span id="shopfunction">{{shop.Function}}&nbsp;</span>
-            <span id="shoptype">{{shop.Type}}&nbsp;</span>
-            <span id="shopwithdraw">{{shop.Withdraw}}</span>
-          </p>
-        </li>
-      </ul>
+			<!--Sort by:
+			<select ng-model="orderProp">
+				<option value="">Alphabetical</option>
+				<option value="age">Newest</option>
+			</select>
+			-->
+			<p></p>
+		</div>
+		<div class="col-md-10">
+			<!-- 分页显示，每页显示5项 -->
+			<ul class="cards">
+				<li ng-repeat="shop in shops | filter:query" class="thumbnail">
+				<a href="#/{{shop.Longitude}},{{shop.Latitude}}">
+					<h4>{{shop.ShopGroup}} - {{shop.ShopName}}</h4>
+				</a>
+				<p>
+				<span id="shopdistrict"><strong>{{shop.District}}</strong></span>
+				<span id="shopaddress">{{shop.Address}}</span>
+				</p>
+				<p>
+				<span id="shopfunction">{{shop.Function}}&nbsp;</span>
+				<span id="shoptype">{{shop.Type}}&nbsp;</span>
+				<span id="shopwithdraw">{{shop.Withdraw}}</span>
+				</p>
+				</li>
+			</ul>
 
-      <!-- 分页控制 -->
-      <div class="turnPageButtonArea" ng-controller="ShopIndexCtrl">
-        <button ng-click="previous()">上一页</button>
-        <button ng-click="next()">下一页</button>
-        <input type="number" ng-model="currentPage" class="pageNum">
-        <button ng-click="goToPage()">跳转</button>
-        <span class="totalPages">共 {{allPage}} 页</span>
-      </div>
+			<!-- 分页控制 -->
+			<ul class="pager" ng-controller="ShopIndexCtrl">
+				<li><a ng-click="previous()"><span>上一页</span></a></li>
+				<li><span class="totalPages">共 {{allPage}} 页</span></li>
+				<li><a ng-click="next()"><span>下一页</span></a></li>
+				<input type="number" ng-model="currentPage" class="pageNum">
+				<li><a ng-click="goToPage()"><span>跳转</span></a></li>
+			</ul>
 
-    </div>
-  </div>
+		</div>
+	</div>
 </div>

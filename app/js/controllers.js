@@ -18,8 +18,22 @@ var shopcatControllers = angular.module('shopcatControllers', []);
 shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$location',
 	function($rootScope, $scope, $location) {
 		$rootScope.pageSize = 5;	// 每页显示的纪录数
+		$scope.currentPage = 1;		// 初始化该变量
 
 		var prefix = "/page/";
+
+		/**
+		 * 从URL中解析出当前页面的ID, 即"app/#/page/1"中井号后面的内容："/page/1".
+		 * 然后通过JavaScript的slice函数取出斜杠后面的字符，并转换成数字.
+		 * 该函数仅执行一次，因此定义后立即执行
+		 * @method init
+		 * @param 无
+		 * @return undefined
+		 */
+		$scope.init = (function() {
+			var pageNum = parseInt($location.path().slice(prefix.length));
+			$scope.currentPage = pageNum;
+		})();
 
 		/**
 		 * 定位到前面一个分页
@@ -28,14 +42,12 @@ shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$locati
 		 * @return undefined
 		 */
 		$scope.previous = function () {
-			// 从浏览器的地址栏获取路径，即"app/#/page/1"中井号后面的内容："/page/1"
-			// 然后通过JavaScript的slice函数取出斜杠后面的字符，并转换成数字。
 			var pageNum = parseInt($location.path().slice(prefix.length)) - 1;
 			if (pageNum < 1) {
 				alert('已经到达第一页');
 			} else {
-				// 如果现在没有处在第一页，则path属性减去1，即向前翻一页。
-				$location.path(prefix+pageNum);
+				$location.path(prefix+pageNum);	// 向前翻一页
+				$scope.currentPage = pageNum;	// 更新当前页数
 			}
 		};
 
@@ -50,7 +62,8 @@ shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$locati
 			if (pageNum > $rootScope.allPage) {
 				alert('已经到达最后一页');
 			} else {
-				$location.path(prefix+pageNum);
+				$location.path(prefix+pageNum);	// 向后翻一页
+				$scope.currentPage = pageNum;	// 更新当前页数
 			}
 		};
 

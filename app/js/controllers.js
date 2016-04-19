@@ -20,8 +20,6 @@ shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$locati
 		$rootScope.pageSize = 5;	// 每页显示的纪录数
 		$scope.currentPage = 1;		// 初始化该变量
 
-		var prefix = "/page/";
-
 		/**
 		 * 从URL中解析出当前页面的ID, 即"app/#/page/1"中井号后面的内容："/page/1".
 		 * 然后通过JavaScript的slice函数取出斜杠后面的字符，并转换成数字.
@@ -31,7 +29,8 @@ shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$locati
 		 * @return undefined
 		 */
 		$scope.init = (function() {
-			var pageNum = parseInt($location.path().slice(prefix.length));
+			var index = $location.path().lastIndexOf("/");
+			var pageNum = parseInt($location.path().slice(index+1));
 			$scope.currentPage = pageNum;
 		})();
 
@@ -42,7 +41,9 @@ shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$locati
 		 * @return undefined
 		 */
 		$scope.previous = function () {
-			var pageNum = parseInt($location.path().slice(prefix.length)) - 1;
+			var index = $location.path().lastIndexOf("/");
+			var prefix = $location.path().slice(0, index+1);
+			var pageNum = parseInt($location.path().slice(index+1)) - 1;
 			if (pageNum < 1) {
 				alert('已经到达第一页');
 			} else {
@@ -58,7 +59,9 @@ shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$locati
 		 * @return undefined
 		 */
 		$scope.next = function () {
-			var pageNum = parseInt($location.path().slice(prefix.length)) + 1;
+			var index = $location.path().lastIndexOf("/");
+			var prefix = $location.path().slice(0, index+1);
+			var pageNum = parseInt($location.path().slice(index+1)) + 1;
 			if (pageNum > $rootScope.allPage) {
 				alert('已经到达最后一页');
 			} else {
@@ -74,6 +77,9 @@ shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$locati
 		 * @return undefined
 		 */
 		$scope.goToPage = function () {
+			var index = $location.path().lastIndexOf("/");
+			var prefix = $location.path().slice(0, index+1);
+
 			// 从input输入框绑定的currentPage变量中获取用户输入的值
 			var pageNum = $scope.currentPage;
 
@@ -111,6 +117,39 @@ shopcatControllers.controller('ShopListCtrl', ['$rootScope', '$scope', '$http', 
 			$rootScope.allPage = (parseInt(data.length)%$rootScope.pageSize == 0) ?
 				(parseInt(data.length/$rootScope.pageSize)) :
 				(parseInt(data.length/$rootScope.pageSize) + 1);
+		});
+	}
+]);
+
+/**
+ * shop-list.html页面使用的控制器，按区域显示每个分页
+ *
+ * @method ShopDistrictCtrl
+ * @param {Object} $rootScope   用于所有控制器之间共享数据
+ * @param {Object} $scope       HTML与控制器之间绑定数据
+ * @param {Object} $http        获取JSON数据
+ * @param {Object} $routeParams URL的路由规则获取
+ * @return undefined
+ */
+shopcatControllers.controller('ShopDistrictCtrl', ['$rootScope', '$scope', '$http', '$routeParams',
+	function($rootScope, $scope, $http, $routeParams) {
+		$scope.pageClass = "page-list";
+		$http.get('data/MetroShops.json').success(function(data) {
+			var fData = [];
+			for (var i=0; i<data.length; i++) {
+				if (data[i].District == $routeParams.did) {
+					fData.push(data[i]);
+				}
+			}
+
+			var start = ($routeParams.pid-1)*$rootScope.pageSize;
+			var end = start + $rootScope.pageSize;
+			$scope.shops = fData.slice(start, end);
+
+			// 总页面数
+			$rootScope.allPage = (parseInt(fData.length)%$rootScope.pageSize == 0) ?
+				(parseInt(fData.length/$rootScope.pageSize)) :
+				(parseInt(fData.length/$rootScope.pageSize) + 1);
 		});
 	}
 ]);

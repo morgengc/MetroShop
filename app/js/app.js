@@ -9,10 +9,18 @@
  */
 var shopcatApp = angular.module('shopcatApp', [
   'ngRoute',
+  'ngAnimate',
   'shopcatControllers',
   'baiduMap'
 ]);
 
+/**
+ * 路由控制规则
+ *
+ * @method
+ * @param {Object} $routeProvider 路由
+ * @return undefined
+ */
 shopcatApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.when('/page/:pid', {
@@ -21,16 +29,18 @@ shopcatApp.config(['$routeProvider',
     });
 
     $routeProvider.when('/:Longitude,:Latitude', {
-      templateUrl: 'partials/shop-detail.html',
-      controller: 'ShopDetailCtrl'
+      templateUrl: 'partials/shop-map.html',
+      controller: 'ShopMapCtrl'
     });
 
     $routeProvider.when('/about', {
-      templateUrl: 'partials/about.html'
+      templateUrl: 'partials/about.html',
+      controller: 'AboutCtrl'
     });
 
     $routeProvider.when('/contact', {
-      templateUrl: 'partials/contact.html'
+      templateUrl: 'partials/contact.html',
+      controller: 'ContactCtrl'
     });
 
     $routeProvider.otherwise({

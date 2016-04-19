@@ -100,6 +100,7 @@ shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$locati
  */
 shopcatControllers.controller('ShopListCtrl', ['$rootScope', '$scope', '$http', '$routeParams',
 	function($rootScope, $scope, $http, $routeParams) {
+		$scope.pageClass = "page-list";
 		$http.get('data/MetroShops.json').success(function(data) {
 			// 注意：json数组的索引是从1开始，而返回的数据是个数组，下标从0开始
 			var start = ($routeParams.pid-1)*$rootScope.pageSize;
@@ -115,15 +116,16 @@ shopcatControllers.controller('ShopListCtrl', ['$rootScope', '$scope', '$http', 
 ]);
 
 /**
- * shop-detail.html页面使用的控制器，用于显示每个店铺的地图
+ * shop-map.html页面使用的控制器，用于显示每个店铺的地图
  *
- * @method ShopDetailCtrl
+ * @method ShopMapCtrl
  * @param {Object} $scope       HTML与控制器之间绑定数据
  * @param {Object} $routeParams URL的路由规则获取
  * @return undefined
  */
-shopcatControllers.controller('ShopDetailCtrl', ['$scope', '$routeParams',
+shopcatControllers.controller('ShopMapCtrl', ['$scope', '$routeParams',
 	function($scope, $routeParams) {
+		$scope.pageClass = "page-map";
 		$scope.latitude = $routeParams.Latitude;
 		$scope.longitude = $routeParams.Longitude;
 
@@ -144,5 +146,31 @@ shopcatControllers.controller('ShopDetailCtrl', ['$scope', '$routeParams',
 				content: 'Put description here'
 			}]
 		};
+	}
+]);
+
+/**
+ * about.html页面使用的控制器
+ *
+ * @method AboutCtrl
+ * @param {Object} $scope HTML与控制器之间绑定数据
+ * @return undefined
+ */
+shopcatControllers.controller('AboutCtrl', ['$scope',
+	function($scope) {
+		$scope.pageClass = "page-about";
+	}
+]);
+
+/**
+ * contact.html页面使用的控制器
+ *
+ * @method ContactCtrl
+ * @param {Object} $scope HTML与控制器之间绑定数据
+ * @return undefined
+ */
+shopcatControllers.controller('ContactCtrl', ['$scope',
+	function($scope) {
+		$scope.pageClass = "page-contact";
 	}
 ]);

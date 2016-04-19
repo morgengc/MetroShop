@@ -1,70 +1,71 @@
 /* app css stylesheet */
 
 body {
-  padding-top: 50px;
-  font-family: 微软雅黑;
+	padding-top: 50px;
+	font-family: 微软雅黑;
 }
 
 nav {
-  margin-bottom: 10px;
+	margin-bottom: 2px;
 }
 
 .container-fluid {
-  margin-top: 10px;
+	margin-top: 2px;
 }
 
 .cards {
-  list-style: none;
+	list-style: none;
 }
 
 .cards li {
-  clear: both;
-  height: 110px;
-  padding-top: 5px;
-  border:lightgray solid thin;
-  background-color: aliceblue;
+	clear: both;
+	height: 110px;
+	padding-top: 5px;
+	border:lightgray solid thin;
+	background-color: aliceblue;
 }
 
 #shopdistrict {
-  background-color:lightgray;
-  border:red dashed thin;
+	background-color:lightgray;
+	border:red dashed thin;
 }
 
 #shopfunction {
-  background-color:lightyellow;
-  border:red solid thin;
+	background-color:lightyellow;
+	border:red solid thin;
 }
 
 #shoptype {
-  background-color:lightblue;
-  border:red solid thin;
+	background-color:lightblue;
+	border:red solid thin;
 }
 
 #shopwithdraw {
-  background-color:lightpink;
-  border:red solid thin;
+	background-color:lightpink;
+	border:red solid thin;
 }
 
 button {
-  margin-right: 20px;
-  width: 100px;
-  height: 30px;
-  font-size: 15px;
-  background-color: lightyellow;
+	margin-right: 20px;
+	width: 100px;
+	height: 30px;
+	font-size: 15px;
+	background-color: lightyellow;
 }
 
 .pageNum {
-  width: 50px;
-  height: 23px;
-  text-align: center;
+	width: 50px;
+	height: 23px;
+	text-align: center;
 }
 
 .totalPages {
-  color: lightpink;
+	color: lightsalmon;
 }
 
 #baiduMapView {
-  width: 1440px;
-  height: 750px;
-  display: block;
+	width: 1440px;
+	height: 750px;
+	display: block;
 }
+

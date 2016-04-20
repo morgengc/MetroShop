@@ -1,55 +1,34 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2 col-lg-2">
-			<!-- 即时搜索 -->
+			<!-- 搜索 输入后即时搜索当前页面 点击按钮搜索全部数据 -->
 			<div class="input-group">
-				<input type="text" class="form-control" ng-model="queryModel">
+				<input type="text" class="form-control" ng-model="query">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">搜索</button>
+					<p class="text-center">
+						<a href="index.html#search/{{query}}/1" class="btn btn-default">全局搜索</a>
+					</p>
 				</span>
 			</div>
 
 			<!-- 区域下拉列表 -->
 			<div class="dropdown">
-				<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" ng-model="districtModel">
+				<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
 					按区域过滤
 					<span class="caret"></span>
 				</button>
-				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation">
-						<a role="menuitem" tabindex="-1" href="index.html#district/渝中区/1">渝中区</a>
-					</li>
-					<li role="presentation">
-						<a role="menuitem" tabindex="-1" href="index.html#district/江北区/1">江北区</a>
-					</li>
-					<li role="presentation">
-						<a role="menuitem" tabindex="-1" href="index.html#district/南岸区/1">南岸区</a>
-					</li>
-					<li role="presentation">
-						<a role="menuitem" tabindex="-1" href="index.html#district/沙坪坝区/1">沙坪坝区</a>
-					</li>
-					<li role="presentation">
-						<a role="menuitem" tabindex="-1" href="index.html#district/九龙坡区/1">九龙坡区</a>
-					</li>
-					<li role="presentation">
-						<a role="menuitem" tabindex="-1" href="index.html#district/大渡口区/1">大渡口区</a>
-					</li>
-					<li role="presentation">
-						<a role="menuitem" tabindex="-1" href="index.html#district/渝北区/1">渝北区</a>
-					</li>
-					<li role="presentation">
-						<a role="menuitem" tabindex="-1" href="index.html#district/巴南区/1">巴南区</a>
-					</li>
-					<li role="presentation">
-						<a role="menuitem" tabindex="-1" href="index.html#district/北碚区/1">北碚区</a>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" ng-controller="DropdownCtrl">
+					<li role="presentation" ng-repeat="district in districts">
+						<a role="menuitem" tabindex="-1" href="index.html#district/{{district.abbreviation}}/1">{{district.name}}</a>
 					</li>
 				</ul>
 			</div>
 		</div>
+
 		<div class="col-md-10 col-lg-10">
 			<!-- 分页显示，每页显示5项 -->
 			<ul class="cards">
-				<li ng-repeat="shop in shops | filter:queryModel" class="thumbnail">
+				<li ng-repeat="shop in shops | filter:query" class="thumbnail">
 				<a href="#/{{shop.Longitude}},{{shop.Latitude}}">
 					<h4>{{shop.ShopGroup}} - {{shop.ShopName}}</h4>
 				</a>

@@ -29,16 +29,22 @@ shopcatApp.config(['$routeProvider',
       controller: 'ShopListCtrl'
     });
 
-    // 店铺地图
-    $routeProvider.when('/:Longitude,:Latitude', {
-      templateUrl: 'partials/shop-map.html',
-      controller: 'ShopMapCtrl'
-    });
-
     // 按区域分页显示
     $routeProvider.when('/district/:did/:pid', {
       templateUrl: 'partials/shop-list.html',
       controller: 'ShopDistrictCtrl'
+    });
+
+    // 按关键字分页显示
+    $routeProvider.when('/search/:keyword/:pid', {
+      templateUrl: 'partials/shop-list.html',
+      controller: 'ShopSearchCtrl'
+    });
+
+    // 店铺地图
+    $routeProvider.when('/:Longitude,:Latitude', {
+      templateUrl: 'partials/shop-map.html',
+      controller: 'ShopMapCtrl'
     });
 
     // 关于

@@ -18,7 +18,7 @@ var shopcatControllers = angular.module('shopcatControllers', []);
 shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$location',
 	function($rootScope, $scope, $location) {
 		$rootScope.pageSize = 5;	// 每页显示的纪录数
-		$scope.currentPage = 1;		// 初始化该变量
+		$scope.currentPage = 1;		// 标记当前页面
 
 		/**
 		 * 从URL中解析出当前页面的ID, 即"app/#/page/1"中井号后面的内容："/page/1".
@@ -107,6 +107,7 @@ shopcatControllers.controller('ShopIndexCtrl', ['$rootScope', '$scope', '$locati
 shopcatControllers.controller('ShopListCtrl', ['$rootScope', '$scope', '$http', '$routeParams',
 	function($rootScope, $scope, $http, $routeParams) {
 		$scope.pageClass = "page-list";
+
 		$http.get('data/MetroShops.json').success(function(data) {
 			// 注意：json数组的索引是从1开始，而返回的数据是个数组，下标从0开始
 			var start = ($routeParams.pid-1)*$rootScope.pageSize;
@@ -134,10 +135,55 @@ shopcatControllers.controller('ShopListCtrl', ['$rootScope', '$scope', '$http', 
 shopcatControllers.controller('ShopDistrictCtrl', ['$rootScope', '$scope', '$http', '$routeParams',
 	function($rootScope, $scope, $http, $routeParams) {
 		$scope.pageClass = "page-list";
+
+		$http.get('data/MetroShops.json').success(function(data) {
+			// 根据缩写提取区域. 如"yz"则返回"渝中区"
+			var district = "渝中区";
+			for (var i=0; i<$rootScope.districts.length; i++) {
+				if ($rootScope.districts[i].abbreviation == $routeParams.did) {
+					district = $rootScope.districts[i].name;
+					break;
+				}
+			}
+
+			// 抽取该区域的数据
+			var fData = [];
+			for (var i=0; i<data.length; i++) {
+				if (data[i].District == district) {
+					fData.push(data[i]);
+				}
+			}
+
+			var start = ($routeParams.pid-1)*$rootScope.pageSize;
+			var end = start + $rootScope.pageSize;
+			$scope.shops = fData.slice(start, end);
+
+			// 总页面数
+			$rootScope.allPage = (parseInt(fData.length)%$rootScope.pageSize == 0) ?
+				(parseInt(fData.length/$rootScope.pageSize)) :
+				(parseInt(fData.length/$rootScope.pageSize) + 1);
+		});
+	}
+]);
+
+/**
+ * 搜索控件使用的控制器
+ *
+ * @method ShopSearchCtrl
+ * @param {Object} $rootScope   用于所有控制器之间共享数据
+ * @param {Object} $scope       HTML与控制器之间绑定数据
+ * @param {Object} $http        获取JSON数据
+ * @param {Object} $routeParams URL的路由规则获取
+ * @return undefined
+ */
+shopcatControllers.controller('ShopSearchCtrl', ['$rootScope', '$scope', '$http', '$routeParams', '$location',
+	function($rootScope, $scope, $http, $routeParams, $location) {
+		$scope.pageClass = "page-list";
+
 		$http.get('data/MetroShops.json').success(function(data) {
 			var fData = [];
 			for (var i=0; i<data.length; i++) {
-				if (data[i].District == $routeParams.did) {
+				if (data[i]["ShopGroup"].indexOf($routeParams.keyword) >= 0) {
 					fData.push(data[i]);
 				}
 			}
@@ -178,11 +224,8 @@ shopcatControllers.controller('ShopMapCtrl', ['$scope', '$routeParams',
 			markers: [{
 				longitude: $scope.longitude,
 				latitude: $scope.latitude,
-				//icon: 'img/mappiont.png',
-				//width: 49,
-				//height: 60,
-				title: 'Where',
-				content: 'Put description here'
+				title: 'TODO: title',
+				content: 'TODO: description'
 			}]
 		};
 	}
@@ -211,5 +254,30 @@ shopcatControllers.controller('AboutCtrl', ['$scope',
 shopcatControllers.controller('ContactCtrl', ['$scope',
 	function($scope) {
 		$scope.pageClass = "page-contact";
+	}
+]);
+
+
+/**
+ * Dropdown控件使用的控制器
+ *
+ * @method DropdownCtrl
+ * @param {Object} $rootScope 用于所有控制器之间共享数据
+ * @param {Object} $scope     HTML与控制器之间绑定数据
+ * @return undefined
+ */
+shopcatControllers.controller('DropdownCtrl', ['$rootScope', '$scope',
+	function($rootScope, $scope) {
+		$rootScope.districts = [
+			{ "name": "渝中区", "abbreviation": "yz" },
+			{ "name": "江北区", "abbreviation": "jb" },
+			{ "name": "南岸区", "abbreviation": "na" },
+			{ "name": "沙坪坝区", "abbreviation": "spb" },
+			{ "name": "渝北区", "abbreviation": "yb" },
+			{ "name": "大渡口区", "abbreviation": "ddk" },
+			{ "name": "九龙坡区", "abbreviation": "jlp" },
+			{ "name": "巴南区", "abbreviation": "bn" },
+			{ "name": "北碚区", "abbreviation": "bb" }
+		];
 	}
 ]);

@@ -3,7 +3,7 @@
 		<div class="col-md-2 col-lg-2">
 			<!-- 搜索 输入后即时搜索当前页面 点击按钮搜索全部数据 -->
 			<div class="input-group">
-				<input type="text" class="form-control" ng-model="query">
+				<input type="text" class="form-control" ng-model="query" placeholder="本页内搜索">
 				<span class="input-group-btn">
 					<p class="text-center">
 						<a href="index.html#search/{{query}}/1" class="btn btn-default">全局搜索</a>
@@ -30,10 +30,9 @@
 			<ul class="cards">
 				<li ng-repeat="shop in shops | filter:query" class="thumbnail">
 				<a href="#/{{shop.Longitude}},{{shop.Latitude}}">
-					<h4>{{shop.ShopGroup}} - {{shop.ShopName}}</h4>
+					<h4>{{shop.ShopGroup}} - {{shop.District}} {{shop.ShopName}}</h4>
 				</a>
 				<p>
-				<span id="shopdistrict"><strong>{{shop.District}}</strong></span>
 				<span id="shopaddress">{{shop.Address}}</span>
 				</p>
 				<p>

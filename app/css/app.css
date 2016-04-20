@@ -9,7 +9,7 @@ nav {
 	margin-bottom: 2px;
 }
 
-.page-list 		{ background:#ffffff; color:#00907c; }
+.page-list 		{ background:#ffffff; color:#000000; }
 .page-about 	{ background:#E59400; color:#a55400; }
 .page-contact 	{ background:#ffa6bb; color:#9e0000; }
 
@@ -30,6 +30,10 @@ nav {
 	background-color: aliceblue;
 }
 
+.cards li:hover {
+	background-color: lightblue;
+}
+
 .input-group {
 	padding-bottom: 10px;
 }
@@ -37,11 +41,6 @@ nav {
 .dropdown {
 	padding-bottom: 10px;
 	color: black;
-}
-
-#shopdistrict {
-	background-color:lightgray;
-	border:red dashed thin;
 }
 
 #shopfunction {

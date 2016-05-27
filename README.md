@@ -1,8 +1,8 @@
-# MetroShop - 我的第一个AngularJS项目
+# MetroShop
 
 ---
 
-重庆公交卡消费门店查询。演示AngularJS分页控制和百度地图定位。
+我的AngularJS练手项目。重庆公交卡消费门店查询，演示AngularJS分页控制和百度地图定位。
 
 实现的功能：
 
@@ -82,10 +82,12 @@ $routeProvider.when('/search/:keyword/:pid', {
 最容易联想到的是，一个输入框结合一个按钮来实现。
 
 第一种方法，按钮用`<button>`标签
-:   `<button>`标签没有`href`属性，因此无法在点击时自动跳转页面。页面不跳转则不会触发路由，进而不会进入路由中关联的Controller。好在可以点击按钮，触发`ng-click`事件，在Controller中定义事件处理函数，就可以进入Controller。跳转页面需要在事件处理函数中手动完成。该方法尝试过，有问题未深入研究。
+
+`<button>`标签没有`href`属性，因此无法在点击时自动跳转页面。页面不跳转则不会触发路由，进而不会进入路由中关联的Controller。好在可以点击按钮，触发`ng-click`事件，在Controller中定义事件处理函数，就可以进入Controller。跳转页面需要在事件处理函数中手动完成。该方法尝试过，有问题未深入研究。
 
 第二种方法，按钮用`<a>`标签
-:   `<a>`标签不仅有`href`属性，还有`ng-click`方法。尝试过两种方案，一种是`href`中不包含关键词，通过`ng-click`传入关键词，该方案的关键词在Controller中无法访问，但可以赋值并在页面更新，原因查不出来。第二种方案是仅借助`href`，并且在`href`中包含关键词，在Controller中通过`$routeParams`访问，该方案为最终方案。
+
+`<a>`标签不仅有`href`属性，还有`ng-click`方法。尝试过两种方案，一种是`href`中不包含关键词，通过`ng-click`传入关键词，该方案的关键词在Controller中无法访问，但可以赋值并在页面更新，原因查不出来。第二种方案是仅借助`href`，并且在`href`中包含关键词，在Controller中通过`$routeParams`访问，该方案为最终方案。
 
 ```html
 <!-- 搜索 输入后即时搜索当前页面 点击按钮搜索全部数据 -->

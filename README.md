@@ -114,4 +114,4 @@ npm install
 ```
 然后访问`http://127.0.0.1:8000/app/index.html`。
 
-**注意**：可能需要将`index.html`的百度AK替换成你个人的百度AK。
+**注意**：地图功能可能需要你将`index.html`的百度AK替换成自己的百度AK。

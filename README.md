@@ -112,4 +112,5 @@ UI框架使用了BootStrap，它能够实现多屏幕自适应。
 npm install
 ./server.sh
 ```
-然后访问`http://127.0.0.1:8000/app/index.html`
+然后访问`http://127.0.0.1:8000/app/index.html`。
+**注意**：可能需要将`index.html`的百度AK替换成你个人的百度AK。

@@ -106,3 +106,10 @@ TODO: 实现周边查询功能。
 
 ### 2.5 优化手机端浏览效果
 UI框架使用了BootStrap，它能够实现多屏幕自适应。
+
+## 3. 运行
+```
+npm install
+./server.sh
+```
+然后访问`http://127.0.0.1:8000/app/index.html`
